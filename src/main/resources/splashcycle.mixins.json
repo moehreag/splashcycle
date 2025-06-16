@@ -1,0 +1,8 @@
+{
+  "package": "io.github.moehreag.splashcycle.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8.5",
+  "client": [
+    "TitleScreenMixin"
+  ]
+}
