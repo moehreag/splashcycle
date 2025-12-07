@@ -9,7 +9,7 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,7 +35,7 @@ public class TitleScreenMixin extends Screen {
 		var cycle = SpriteIconButton.builder(Component.translatable("cycle_splash"),
 						btn -> splash = this.minecraft.getSplashManager().getSplash(), true)
 				.size(20, 20)
-				.sprite(ResourceLocation.fromNamespaceAndPath("splashcycle", "cycle"), 16, 16).build();
+				.sprite(Identifier.fromNamespaceAndPath("splashcycle", "cycle"), 16, 16).build();
 		cycle.setPosition(singleplayer.getRight() + 4, singleplayer.getY());
 		cycle.setTooltip(Tooltip.create(cycle.getMessage()));
 		addRenderableWidget(cycle);
