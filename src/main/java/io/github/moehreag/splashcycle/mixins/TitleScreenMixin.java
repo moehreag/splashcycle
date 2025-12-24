@@ -2,6 +2,7 @@ package io.github.moehreag.splashcycle.mixins;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import io.github.moehreag.splashcycle.SplashCycle;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.SplashRenderer;
 import net.minecraft.client.gui.components.SpriteIconButton;
@@ -16,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(TitleScreen.class)
-public class TitleScreenMixin extends Screen {
+public abstract class TitleScreenMixin extends Screen {
 
 	@Shadow
 	private @Nullable SplashRenderer splash;
@@ -33,7 +34,10 @@ public class TitleScreenMixin extends Screen {
 						e.getMessage().equals(Component.translatable("menu.singleplayer")))
 				.findFirst().orElseThrow();
 		var cycle = SpriteIconButton.builder(Component.translatable("cycle_splash"),
-						btn -> splash = this.minecraft.getSplashManager().getSplash(), true)
+						btn -> {
+							SplashCycle.isCycled = true;
+							splash = this.minecraft.getSplashManager().getSplash();
+						}, true)
 				.size(20, 20)
 				.sprite(Identifier.fromNamespaceAndPath("splashcycle", "cycle"), 16, 16).build();
 		cycle.setPosition(singleplayer.getRight() + 4, singleplayer.getY());
