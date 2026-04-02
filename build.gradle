@@ -1,7 +1,7 @@
 plugins {
-	id 'net.fabricmc.fabric-loom-remap' version '1.14.+'
-	id "io.freefair.lombok" version "9.0.+"
-	id "com.hypherionmc.modutils.modpublisher" version "2.1.6"
+	id 'net.fabricmc.fabric-loom' version '1.15.+'
+	id "io.freefair.lombok" version "9.2.+"
+	id "me.modmuss50.mod-publish-plugin" version "1.1.0"
 	id 'maven-publish'
 }
 
@@ -32,16 +32,10 @@ loom {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.layered {
-		officialMojangMappings {
-			nameSyntheticMembers = true
-		}
-	}
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
@@ -92,25 +86,15 @@ publishing {
 	}
 }
 
-tasks.publishModrinth {
-	dependsOn tasks.build
-}
-
-publisher {
-	apiKeys {
-		modrinth System.getenv("MODRINTH_TOKEN")
-		curseforge System.getenv("CURSEFORGE_TOKEN")
+publishMods {
+	changelog = "No changelog provided"
+	type = STABLE
+	file = jar.archiveFile
+	modLoaders.addAll("fabric", "quilt")
+	additionalFiles.from(tasks.sourcesJar.archiveFile)
+	modrinth {
+		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+		projectId = "LnquzuIq"
+		minecraftVersions.add(minecraft_version)
 	}
-
-	setModrinthID("LnquzuIq")
-
-	setChangelog("No changelog provided")
-	setVersion(project.version)
-	setGameVersions(project.minecraft_version)
-	setLoaders("fabric", "quilt")
-	setCurseEnvironment("client")
-	setArtifact(remapJar)
-	addAdditionalFile(remapSourcesJar)
-	setVersionType("release")
-	setDisableMalwareScanner(true)
 }

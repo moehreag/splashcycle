@@ -1,6 +1,6 @@
 {
   "package": "io.github.moehreag.splashcycle.mixins",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "minVersion": "0.8.5",
   "client": [
 	"SplashManagerMixin",
