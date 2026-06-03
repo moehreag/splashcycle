@@ -36,7 +36,7 @@ public abstract class TitleScreenMixin extends Screen {
 		var cycle = SpriteIconButton.builder(Component.translatable("cycle_splash"),
 						btn -> {
 							SplashCycle.isCycled = true;
-							splash = this.minecraft.getSplashManager().getSplash();
+							splash = this.minecraft.gui.splashManager().getSplash();
 						}, true)
 				.size(20, 20)
 				.sprite(Identifier.fromNamespaceAndPath("splashcycle", "cycle"), 16, 16).build();
