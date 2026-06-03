@@ -26,7 +26,6 @@ loom {
 			sourceSet sourceSets.main
 		}
 	}
-
 }
 
 dependencies {
