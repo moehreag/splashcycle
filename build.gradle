@@ -1,7 +1,7 @@
 plugins {
-	id 'net.fabricmc.fabric-loom' version '1.16.+'
+	id 'net.fabricmc.fabric-loom' version '1.17.+'
 	id "io.freefair.lombok" version "9.2.+"
-	id "me.modmuss50.mod-publish-plugin" version "1.1.0"
+	id "me.modmuss50.mod-publish-plugin" version "2.0.0"
 	id 'maven-publish'
 }
 
@@ -46,7 +46,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
@@ -55,8 +55,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
@@ -89,7 +89,7 @@ publishMods {
 	changelog = "No changelog provided"
 	type = STABLE
 	file = jar.archiveFile
-	modLoaders.addAll("fabric", "quilt")
+	modLoaders.addAll("fabric")
 	additionalFiles.from(tasks.sourcesJar.archiveFile)
 	modrinth {
 		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
